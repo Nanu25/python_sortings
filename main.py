@@ -150,7 +150,67 @@ def bogoSort(n : int, number_list : list) -> list:
         print(number_list)
         number_list = randomize_list(n, number_list)
 
+    return number_lists
+
+#cocktail sort is like the bubble sort but from both sides
+# TODO
+def cocktailSort(n : int, number_list : int, step : int):
+    number_step = 0
+    start = 0
+    end = n - 1
+    sorted = 0
+    while sorted == 0:
+        sorted = 1
+        for i in range(start, end):
+            if number_list[i] > number_list[i + 1]:
+                (number_list[i], number_list[i + 1]) = (number_list[i + 1], number_list[i])
+                sorted = 0
+
+                number_step = number_step + 1
+                if number_step % step == 0:
+                    print(number_list)
+
+        if(sorted == 1):
+            break
+        sorted = 1
+        end = end - 1
+        for i in range(end - 1, start):
+            if number_list[i] > number_list[i + 1]:
+                (number_list[i], number_list[i + 1]) = (number_list[i + 1], number_list[i])
+                sorted = 0
+
+                number_step = number_step + 1
+                if number_step % step == 0:
+                    print(number_list)
+
+        start = start + 1
+
     return number_list
+
+#permutation sort, like it's name says
+
+from itertools import permutations
+
+def Generate_permutation(n : int, number_list : int):
+    listOfPermutation = list(permutations(range(0, len(number_list))))
+    for i in listOfPermutation:
+        #create the array with the index i generated.
+        sorted_list = [None] * n
+        for j in range(n):
+            sorted_list[j] = number_list[i.index(j)]
+
+        #test if the permutation makes a sorted array.
+        sorted = 1
+        for j in range(n - 1):
+            if sorted_list[j] > sorted_list[j + 1]:
+                sorted = 0
+                break
+
+        if sorted == 1:
+            return sorted_list
+
+        print(sorted_list)
+
 
 #main program
 
@@ -160,6 +220,8 @@ print("2 for  heap sort")
 print("3 for selection sort")
 print("4 for bubble sort")
 print("5 for bogo sort")
+print("6 for cocktail sort")
+print("7 for permutation sort")
 which_sort = int(input(">"))
 
 n = int(input("Write the number of numbers you want to generate: "))
@@ -179,6 +241,7 @@ elif which_sort == 2:
     heap_list = BuildHeapList(n, list_of_numbers, number_steps)
     heap_list = HeapSort(n, heap_list, step, number_steps)
     printHeap(heap_list)
+
 elif which_sort == 3:
     list_of_numbers = selectionSort(n, list_of_numbers, step)
     print(list_of_numbers)
@@ -187,4 +250,10 @@ elif which_sort == 4:
 elif which_sort == 5:
     print("At bogo sort i will print at every randomize")
     list_of_numbers = bogoSort(n, list_of_numbers)
+    print(list_of_numbers)
+elif which_sort == 6:
+    list_of_numbers = cocktailSort(n, list_of_numbers, step)
+    print(list_of_numbers)
+elif which_sort == 7:
+    list_of_numbers = Generate_permutation(n, list_of_numbers)
     print(list_of_numbers)
