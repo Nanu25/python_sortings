@@ -153,7 +153,6 @@ def bogoSort(n : int, number_list : list) -> list:
     return number_lists
 
 #cocktail sort is like the bubble sort but from both sides
-# TODO
 def cocktailSort(n : int, number_list : int, step : int):
     number_step = 0
     start = 0
