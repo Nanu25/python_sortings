@@ -272,6 +272,7 @@ print("6 for cocktail sort")
 print("7 for permutation sort")
 print("8 for comb sort")
 print("9 for gnome sort")
+print("10 for Shell sort")
 which_sort = int(input(">"))
 
 n = int(input("Write the number of numbers you want to generate: "))
