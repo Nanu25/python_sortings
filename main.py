@@ -54,7 +54,7 @@ def HeapAdd(n : int, heap_list : list, step : int, levelHeap : int, number_steps
 def HeapExtract(n : int, heap_list : list, step : int, levelHeap : int, node : int, number_steps : int):
     if 2 * node <= levelHeap:
         left_son = heap_list[2 * node]
-        right_son = 0
+        right_son = -1
         which_son = 2 * node
 
         # if i have a right son
@@ -76,7 +76,7 @@ def HeapExtract(n : int, heap_list : list, step : int, levelHeap : int, node : i
 
 
 def HeapSort(n : int, heap_list : list, step : int, number_steps : int) -> list:
-    for i in range(1, n):
+    for i in range(1, n + 1):
         # i move the maximum element to the last position
         (heap_list[1], heap_list[n - i + 1]) = (heap_list[n - i + 1], heap_list[1])
 
@@ -171,9 +171,10 @@ def cocktailSort(n : int, number_list : int, step : int):
 
         if(sorted == 1):
             break
+
         sorted = 1
         end = end - 1
-        for i in range(end - 1, start):
+        for i in range(end - 1, start, -1):
             if number_list[i] > number_list[i + 1]:
                 (number_list[i], number_list[i + 1]) = (number_list[i + 1], number_list[i])
                 sorted = 0
@@ -211,6 +212,54 @@ def Generate_permutation(n : int, number_list : int):
         print(sorted_list)
 
 
+#comb sort is like the bubble sort but you don t took every consecutive numbers
+
+def getNextgap(gap : int) -> int:
+    gap = (gap * 10) // 13
+    if gap < 1:
+        return 1
+    return gap
+
+def combSort(n : int, number_list : int, step : int) -> list:
+    gap = n
+    swapped = 1
+    number_steps = 0
+    while gap != 1 or swapped == 1:
+        gap = getNextgap(gap)
+        swapped = False
+        for i in range(n - gap):
+            if number_list[i] > number_list[i + gap]:
+                (number_list[i], number_list[i + gap]) = (number_list[i + gap], number_list[i])
+                swapped = True
+
+                number_steps = number_steps + 1
+                if number_steps % step == 0:
+                    print(number_list)
+
+    return number_list
+
+
+#function for gnomeSort
+
+def gnomeSort(n : int, number_list : int, step : int) -> list:
+    number_steps = 0
+    i = 0
+    while i < n:
+        if i == 0:
+            i = i + 1
+        if number_list[i] >= number_list[i - 1]:
+            i = i + 1
+        else:
+            (number_list[i], number_list[i - 1]) = (number_list[i - 1], number_list[i])
+            i = i - 1
+
+            number_steps = number_steps + 1
+            if number_steps % step == 0:
+                print(number_list)
+
+    return number_list
+
+
 #main program
 
 print("Press the option do you want to choose ")
@@ -221,6 +270,8 @@ print("4 for bubble sort")
 print("5 for bogo sort")
 print("6 for cocktail sort")
 print("7 for permutation sort")
+print("8 for comb sort")
+print("9 for gnome sort")
 which_sort = int(input(">"))
 
 n = int(input("Write the number of numbers you want to generate: "))
@@ -240,7 +291,6 @@ elif which_sort == 2:
     heap_list = BuildHeapList(n, list_of_numbers, number_steps)
     heap_list = HeapSort(n, heap_list, step, number_steps)
     printHeap(heap_list)
-
 elif which_sort == 3:
     list_of_numbers = selectionSort(n, list_of_numbers, step)
     print(list_of_numbers)
@@ -254,5 +304,12 @@ elif which_sort == 6:
     list_of_numbers = cocktailSort(n, list_of_numbers, step)
     print(list_of_numbers)
 elif which_sort == 7:
+    print("At permutation sort i will print at every permutation")
     list_of_numbers = Generate_permutation(n, list_of_numbers)
+    print(list_of_numbers)
+elif which_sort == 8:
+    list_of_numbers = combSort(n, list_of_numbers, step)
+    print(list_of_numbers)
+elif which_sort == 9:
+    list_of_numbers = gnomeSort(n, list_of_numbers, step)
     print(list_of_numbers)
