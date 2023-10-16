@@ -260,6 +260,46 @@ def gnomeSort(n : int, number_list : int, step : int) -> list:
     return number_list
 
 
+#function for shell sort: Insertion sort a much way better
+def shellSort(n : int, number_list : int, step : int) -> list:
+    number_steps = 0
+    gap = n // 2
+    while gap > 0:
+        j = gap
+        while j < n:
+            i = j - gap
+            while i >= 0:
+                if number_list[i + gap] > number_list[i]:
+                    break
+                else:
+                    (number_list[i + gap], number_list[i]) = (number_list[i], number_list[i + gap])
+                    number_steps  += 1
+                    if number_steps % step == 0:
+                        print(number_list)
+
+                i -= gap
+            j += 1
+        gap = gap // 2
+
+    return number_list
+
+def stoogeSort(n : int, number_list : int, step : int, left : int, right : int, number_steps : int) -> list:
+    if left < right:
+        if number_list[left] > number_list[right]:
+            (number_list[left], number_list[right]) = (number_list[right], number_list[left])
+
+            number_steps += 1
+            if number_steps % step == 0:
+                print(number_list)
+        if right - left + 1 > 2:
+            lenght = (right - left + 1) // 3
+
+            stoogeSort(n, number_list, step, left, right - lenght, number_steps)
+            stoogeSort(n, number_list, step, left + lenght, right, number_steps)
+            stoogeSort(n, number_list, step, left, right - lenght, number_steps)
+
+    return number_list
+
 #main program
 
 print("Press the option do you want to choose ")
@@ -273,6 +313,7 @@ print("7 for permutation sort")
 print("8 for comb sort")
 print("9 for gnome sort")
 print("10 for Shell sort")
+print("11 for Stooge sort")
 which_sort = int(input(">"))
 
 n = int(input("Write the number of numbers you want to generate: "))
@@ -313,4 +354,11 @@ elif which_sort == 8:
     print(list_of_numbers)
 elif which_sort == 9:
     list_of_numbers = gnomeSort(n, list_of_numbers, step)
+    print(list_of_numbers)
+elif which_sort == 10:
+    list_of_numbers = shellSort(n, list_of_numbers, step)
+    print(list_of_numbers)
+else:
+    number_steps = 0
+    list_of_numbers = stoogeSort(n, list_of_numbers, step, 0, n - 1, number_steps)
     print(list_of_numbers)
