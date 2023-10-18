@@ -23,7 +23,6 @@ Implement a menu-driven console application to help visualize the way sorting al
 - Bogosort
 - Bubble Sort
 - Cocktail Sort
-- Exchange Sort
 - Insert Sort
 - Permutation Sort
 - Selection Sort
@@ -33,5 +32,4 @@ Implement a menu-driven console application to help visualize the way sorting al
 - Gnome Sort
 - Heap Sort
 - Shell Sort
-- Strand Sort
 - Stooge Sort
